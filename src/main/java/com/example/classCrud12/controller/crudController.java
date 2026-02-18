@@ -2,14 +2,17 @@ package com.example.classCrud12.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.classCrud12.dto.loginRequestDto;
 import com.example.classCrud12.model.AuthData;
 import com.example.classCrud12.service.AuthService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -32,18 +35,29 @@ public AuthData postMethodName(@RequestBody AuthData  data) {
     return aService.post(data);
 }
 
+// get by all
+@GetMapping("/user")
+public List<AuthData> getMethodName() {
 
-@GetMapping("path")
-public String getMethodName(@RequestParam String param) {
-    return new String();
+
+return aService.Getbyall();
+
+}
+
+@GetMapping("/users/{id}")
+public Optional<AuthData> putMethodName(@PathVariable Long id  ) {
+    
+    
+    return aService.getbyid(id);
 }
 
 
-@PutMapping("path/{id}")
-public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-    //TODO: process PUT request
+
+@GetMapping("/user/{id}")
+public String putMethodName(@PathVariable Long id , @RequestBody  loginRequestDto lRdto ) {
     
-    return entity;
+    
+    return aService.loginCheack(id  ,lRdto);
 }
 
 
