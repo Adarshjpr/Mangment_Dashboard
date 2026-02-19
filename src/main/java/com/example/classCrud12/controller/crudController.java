@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +60,45 @@ public String putMethodName(@PathVariable Long id , @RequestBody  loginRequestDt
     
     return aService.loginCheack(id  ,lRdto);
 }
+
+
+@DeleteMapping("/logout/{id}")
+public  String  logout(@PathVariable Long id){
+
+    return aService.logout(id);
+}
+
+
+/*
+
+{
+ not update
+  authdata  db  {
+    "Name": "arif",
+    "email": "arif@gmail.com",
+    "password": "54321"
+  }
+}
+
+     dbupate value  get      setname(" arif khan")  setPassword("3443")  
+
+  save(dbupdate )
+
+*/
+
+
+
+ @PutMapping("/update/{id}")
+ public String putMethodName(@PathVariable Long id, @RequestBody  AuthData  upDB) {
+     //TODO: process PUT request
+     
+     return aService.update(id ,upDB);
+ }
+
+
+
+
+
 
 
 
