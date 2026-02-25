@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -28,6 +30,12 @@ AuthService aService ;
 this.aService =aService ;
     }
 
+
+    @GetMapping("/home")
+    public String home() {
+        return " public home ";
+    }
+    
 
 @PostMapping("/register")
 public AuthData postMethodName(@RequestBody AuthData  data) {
@@ -90,8 +98,7 @@ public  String  logout(@PathVariable Long id){
 
  @PutMapping("/update/{id}")
  public String putMethodName(@PathVariable Long id, @RequestBody  AuthData  upDB) {
-     //TODO: process PUT request
-     
+    
      return aService.update(id ,upDB);
  }
 

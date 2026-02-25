@@ -3,6 +3,7 @@ package com.example.classCrud12.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.classCrud12.dto.loginRequestDto;
@@ -14,11 +15,19 @@ public class AuthService {
 
     authRepo repo;
 
-    AuthService(authRepo repo) {
+    PasswordEncoder pEncoder ;
+
+    AuthService(authRepo repo  ,  PasswordEncoder pEncoder ) {
         this.repo = repo;
+        this.pEncoder =pEncoder;
     }
 
     public AuthData post(AuthData data) {
+
+  String password=    data.getPassword(); 
+  String encodePass=   pEncoder.encode(password);
+
+  data.setPassword(encodePass);
 
         repo.save(data);
 
