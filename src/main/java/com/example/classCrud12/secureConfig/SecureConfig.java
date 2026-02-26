@@ -23,8 +23,14 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     )
 
-        .csrf(csrf -> csrf.disable()); // Disable CSRF for testing
-    return http.build();
+        .csrf(csrf -> csrf.disable())
+        
+        .formLogin(form -> form.disable())
+        .httpBasic(h ->h.disable())
+        ; // Disable CSRF for testing
+           
+    
+        return http.build();
 }
 
 }

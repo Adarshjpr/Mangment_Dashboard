@@ -3,6 +3,7 @@ package com.example.classCrud12.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classCrud12.dto.loginRequestDto;
+import com.example.classCrud12.jwt.jwtToken;
 import com.example.classCrud12.model.AuthData;
 import com.example.classCrud12.service.AuthService;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController   // COMPONENT SCAM   BEANS 
 public class crudController {
 AuthService aService ;
+@Autowired
+private   jwtToken jToken;
 
     crudController(AuthService aService){
 this.aService =aService ;
@@ -44,6 +48,12 @@ public AuthData postMethodName(@RequestBody AuthData  data) {
     return aService.post(data);
 }
 
+@PostMapping("/token")
+public String token(@RequestBody String email) {
+
+    
+    return jToken.gernateToken(email);
+}
 // get by all
 @GetMapping("/user")
 public List<AuthData> getMethodName() {
