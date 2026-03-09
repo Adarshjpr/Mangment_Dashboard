@@ -48,13 +48,13 @@ public AuthData postMethodName(@RequestBody AuthData  data) {
     return aService.post(data);
 }
 
-@PostMapping("/token")
-public String token(@RequestBody String email) {
-
+@PostMapping("/login")
+public String login(@RequestBody String email) {
+//   String webtoken =  jToken.gernateToken(email) ;
     
     return jToken.gernateToken(email);
 }
-// get by all
+// get by all   
 @GetMapping("/user")
 public List<AuthData> getMethodName() {
 
@@ -62,6 +62,13 @@ public List<AuthData> getMethodName() {
 return aService.Getbyall();
 
 }
+
+
+@GetMapping("/admin")
+public String AdminDashnoard() {
+    return "admin  dashboard";
+}
+
 
 @GetMapping("/users/{id}")
 public Optional<AuthData> putMethodName(@PathVariable Long id  ) {

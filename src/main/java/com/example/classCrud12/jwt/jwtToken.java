@@ -28,7 +28,7 @@ public Key  getSingKey(){
   
 //  HEADER . PAYLAOY
 
-public String gernateToken(String email){
+public String gernateToken(String email ){
     return Jwts.builder().setSubject(email)
     .setIssuedAt(new Date())  //2:26  --> 2:36
     .setExpiration(new Date(System.currentTimeMillis()+1000*60*10)) 
@@ -50,4 +50,13 @@ User user = User.builder()
 
         payload me jo data jata h  usko subject 
 */
+
+
+public String extract(String token)
+{
+return Jwts.parserBuilder().setSigningKey(getSingKey()).build().parseClaimsJws(token).getBody().getSubject();
+}
+
+
+// header .  payload . true 
 }
