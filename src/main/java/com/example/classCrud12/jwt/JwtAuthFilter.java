@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -33,6 +35,7 @@ public class JwtAuthFilter  extends OncePerRequestFilter {
   String authHeader =  request.getHeader("Authorization");
 String token = null;
 String email = null;
+String Roles = null ;
    // 2️⃣ Check karo Bearer token hai ya nahi
 
       if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -40,12 +43,15 @@ String email = null;
             token = authHeader.substring(7);
                  // 4️⃣ email extract karo
           email =  jToken.extract(token);
+          Roles = jToken.extractRoles(token);
         }
 
 
         if (email!=null &&   SecurityContextHolder.getContext().getAuthentication()== null ) {
             
-   UsernamePasswordAuthenticationToken  authenticationToken = new UsernamePasswordAuthenticationToken(email , null ,Collections.emptyList());
+         GrantedAuthority authority = 
+    new SimpleGrantedAuthority("ROLE_" + Roles);  //Role_Admin
+   UsernamePasswordAuthenticationToken  authenticationToken = new UsernamePasswordAuthenticationToken(email , null ,Collections.singleton(authority));
 
    // db email se aerify hoge 
 //   value/user ki  , null     ,, role 

@@ -23,7 +23,8 @@ public class SecureConfig {
 }
    @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(auth -> auth.requestMatchers("/user","/admin").authenticated()
+    http.authorizeHttpRequests(auth -> auth.requestMatchers("/user").authenticated()
+    .requestMatchers("/admin").hasRole("ADMIN")
     .anyRequest().permitAll()
 
     )

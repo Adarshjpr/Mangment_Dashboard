@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,10 +50,10 @@ public AuthData postMethodName(@RequestBody AuthData  data) {
 }
 
 @PostMapping("/login")
-public String login(@RequestBody String email) {
+public String login(@RequestBody loginRequestDto dto) {
 //   String webtoken =  jToken.gernateToken(email) ;
     
-    return jToken.gernateToken(email);
+    return jToken.gernateToken(dto.getEmail() ,dto.getRoles());
 }
 // get by all   
 @GetMapping("/user")
@@ -63,7 +64,7 @@ return aService.Getbyall();
 
 }
 
-
+@PreAuthorize("hasRole('ADMIN')")
 @GetMapping("/admin")
 public String AdminDashnoard() {
     return "admin  dashboard";

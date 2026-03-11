@@ -28,8 +28,9 @@ public Key  getSingKey(){
   
 //  HEADER . PAYLAOY
 
-public String gernateToken(String email ){
+public String gernateToken(String email , String roles ){
     return Jwts.builder().setSubject(email)
+    .claim("roles", roles)
     .setIssuedAt(new Date())  //2:26  --> 2:36
     .setExpiration(new Date(System.currentTimeMillis()+1000*60*10)) 
     .signWith(getSingKey(),SignatureAlgorithm.HS256).compact() ;
@@ -56,7 +57,10 @@ public String extract(String token)
 {
 return Jwts.parserBuilder().setSigningKey(getSingKey()).build().parseClaimsJws(token).getBody().getSubject();
 }
-
+public String extractRoles(String token)
+{
+return Jwts.parserBuilder().setSigningKey(getSingKey()).build().parseClaimsJws(token).getBody().get("roles", String.class);
+}
 
 // header .  payload . true 
 }
